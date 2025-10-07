@@ -1,0 +1,2210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MacVG Premium | Elite Gaming Experience</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #f1f1f1;
+            --text-secondary: #b8b8b8;
+            --gold: #d4af37;
+            --silver: #c0c0c0;
+            --premium-gradient: linear-gradient(135deg, #0f3460, #1a1a2e, #16213e);
+            --card-gradient: linear-gradient(135deg, rgba(15, 52, 96, 0.7), rgba(22, 33, 62, 0.7));
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--premium-gradient);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(233, 69, 96, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(15, 52, 96, 0.15) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--highlight);
+        }
+
+        .logo span {
+            background: linear-gradient(90deg, var(--highlight), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--highlight);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .premium-badge {
+            background: linear-gradient(135deg, var(--gold), var(--highlight));
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+            transition: var(--transition);
+        }
+
+        .premium-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--highlight));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--text), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--highlight), transparent);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--highlight), var(--accent));
+            color: white;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-bg);
+            transform: translateY(-3px);
+        }
+
+        /* Games Grid */
+        .games-section {
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--highlight);
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--highlight);
+            color: white;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .game-card {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.1), transparent 30%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .game-card:hover::before {
+            opacity: 1;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 180px;
+            background: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .game-card:hover .game-image img {
+            transform: scale(1.05);
+        }
+
+        .game-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--highlight);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .game-content {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gold);
+        }
+
+        .game-play {
+            background: var(--highlight);
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .game-play:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Premium Features */
+        .features-section {
+            padding: 4rem 2rem;
+            background: var(--secondary);
+            position: relative;
+        }
+
+        .features-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(15, 52, 96, 0.1) 0%, transparent 50%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card {
+            background: var(--glass-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--highlight), var(--gold));
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--highlight), var(--gold));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Game Modal */
+        .game-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .game-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--highlight);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .game-info {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-preview {
+            width: 100%;
+            height: 200px;
+            background: var(--accent);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .game-details h3 {
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--glass-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            padding: 3rem 2rem 1.5rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background: var(--highlight);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--highlight);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--highlight);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Settings Panel */
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: var(--secondary);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            transition: var(--transition);
+            padding: 2rem;
+            overflow-y: auto;
+            border-left: 1px solid var(--glass-border);
+        }
+
+        .settings-panel.active {
+            right: 0;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .settings-title {
+            font-size: 1.5rem;
+        }
+
+        .close-settings {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-settings:hover {
+            color: var(--highlight);
+        }
+
+        .settings-group {
+            margin-bottom: 2rem;
+        }
+
+        .settings-group-title {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .setting-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--glass-bg);
+            transition: var(--transition);
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: var(--transition);
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--highlight);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .theme-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .theme-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .theme-option.active {
+            border-color: var(--highlight);
+        }
+
+        .theme-default {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .theme-dark {
+            background: linear-gradient(135deg, #0d1b2a, #1b263b);
+        }
+
+        .theme-ocean {
+            background: linear-gradient(135deg, #012a4a, #013a63);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .game-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .settings-panel {
+                width: 100%;
+                right: -100%;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation for premium elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+
+        /* Pearl effect */
+        .pearl {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.2) 70%);
+            filter: blur(5px);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .pearl-1 {
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .pearl-2 {
+            top: 60%;
+            right: 10%;
+            animation: float 6s ease-in-out infinite 1s;
+        }
+
+        .pearl-3 {
+            bottom: 20%;
+            left: 15%;
+            animation: float 7s ease-in-out infinite 0.5s;
+        }
+        
+        /* Hidden game sections */
+        .game-category {
+            display: none;
+        }
+        
+        .game-category.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Pearl effects -->
+    <div class="pearl pearl-1"></div>
+    <div class="pearl pearl-2"></div>
+    <div class="pearl pearl-3"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <i class="fas fa-gamepad"></i>
+                MacVG <span>Premium</span>
+            </a>
+            
+            <nav class="nav-links">
+                <a href="#" class="nav-link" data-section="all">Home</a>
+                <a href="#" class="nav-link" data-section="games">Games</a>
+                <a href="#" class="nav-link" data-section="premium">Premium</a>
+                <a href="#" class="nav-link" data-section="leaderboards">Leaderboards</a>
+                <a href="#" class="nav-link" data-section="community">Community</a>
+            </nav>
+            
+            <div class="user-actions">
+                <div class="premium-badge">
+                    <i class="fas fa-crown"></i>
+                    Premium Member
+                </div>
+                
+                <div class="user-profile">
+                    <div class="avatar">JD</div>
+                    <span>JohnDoe</span>
+                </div>
+                
+                <button id="settings-toggle" class="btn-secondary">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Elite Gaming, Elevated</h1>
+        <p>Welcome to MacVG Premium - where exceptional games meet exclusive features. Experience ad-free gameplay, cloud saves, early access, and much more in our curated collection of premium titles.</p>
+        
+        <div class="cta-buttons">
+            <button class="btn btn-primary" id="explore-games">
+                <i class="fas fa-play"></i>
+                Explore Games
+            </button>
+            <button class="btn btn-secondary" id="premium-features">
+                <i class="fas fa-gem"></i>
+                Premium Features
+            </button>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section class="games-section" id="games-section">
+        <div class="section-header">
+            <h2 class="section-title">Premium Games</h2>
+            
+            <div class="category-filters">
+                <button class="filter-btn active" data-category="all">All Games</button>
+                <button class="filter-btn" data-category="clicker">Clicker</button>
+                <button class="filter-btn" data-category="racing">Racing</button>
+                <button class="filter-btn" data-category="action">Action</button>
+                <button class="filter-btn" data-category="strategy">Strategy</button>
+                <button class="filter-btn" data-category="casual">Casual</button>
+            </div>
+        </div>
+        
+        <!-- Clicker Games -->
+        <div class="game-category active" id="clicker-games">
+            <h3 class="section-title" style="margin-bottom: 1.5rem;">Clicker Games</h3>
+            <div class="games-grid">
+                <!-- Coffee Clicker -->
+                <div class="game-card" data-game="coffee-clicker">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #6f4e37, #c0a080); height: 100%;"></div>
+                        <div class="game-badge">Popular</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Coffee Clicker</h3>
+                        <p class="game-description">Brew coffee, hire baristas, and build your caffeine empire in this addictive clicker game.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Clicker Clicker -->
+                <div class="game-card" data-game="clicker-clicker">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #ff6b6b, #ffa36c); height: 100%;"></div>
+                        <div class="game-badge">New</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Clicker Clicker</h3>
+                        <p class="game-description">A clicker about clicking clickers. Dumb? Yes. Addicting? Also yes.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.5</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Infinite Factory Tycoon -->
+                <div class="game-card" data-game="infinite-factory">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #4a4a4a, #7a7a7a); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Infinite Factory Tycoon</h3>
+                        <p class="game-description">Upgrade machines, sell weird stuff, get rich in this factory management game.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- EvoClick -->
+                <div class="game-card" data-game="evoclick">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #1e3c72, #2a5298); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">EvoClick</h3>
+                        <p class="game-description">Evolve civilizations with just clicking (Stone Age to Cyberpunk).</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.6</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Meme Miner -->
+                <div class="game-card" data-game="meme-miner">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #ff00cc, #333399); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Meme Miner</h3>
+                        <p class="game-description">Click to mine memes, craft NFT parodies, ascend to godhood.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.3</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cookie Conquest -->
+                <div class="game-card" data-game="cookie-conquest">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #d2691e, #f4a460); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Cookie Conquest</h3>
+                        <p class="game-description">Bake, sell, and upgrade cookies while conquering rival bakeries.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.4</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Alien Tapper -->
+                <div class="game-card" data-game="alien-tapper">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #00b09b, #96c93d); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Alien Tapper</h3>
+                        <p class="game-description">Build an alien civilization one abduction at a time.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.2</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Idle Heist -->
+                <div class="game-card" data-game="idle-heist">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #2c3e50, #4ca1af); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Idle Heist</h3>
+                        <p class="game-description">Recruit robbers, plan perfect heists, and watch the cash roll in.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.5</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Racing Games -->
+        <div class="game-category" id="racing-games">
+            <h3 class="section-title" style="margin-bottom: 1.5rem;">Racing Games</h3>
+            <div class="games-grid">
+                <!-- Drift Legends 2D -->
+                <div class="game-card" data-game="drift-legends">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); height: 100%;"></div>
+                        <div class="game-badge">Popular</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Drift Legends 2D</h3>
+                        <p class="game-description">Realistic physics, car upgrades, and leaderboards in this thrilling racing game.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.6</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Hover City Rush -->
+                <div class="game-card" data-game="hover-city">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #0f3460, #533483); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Hover City Rush</h3>
+                        <p class="game-description">Futuristic hover car racing through neon skylines.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.4</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Rally Royale -->
+                <div class="game-card" data-game="rally-royale">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #8b4513, #d2691e); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Rally Royale</h3>
+                        <p class="game-description">Randomly generated dirt tracks, online ghost racing.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.3</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Games -->
+        <div class="game-category" id="action-games">
+            <h3 class="section-title" style="margin-bottom: 1.5rem;">Action Games</h3>
+            <div class="games-grid">
+                <!-- Pixel Bounty -->
+                <div class="game-card" data-game="pixel-bounty">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #0f3460, #1a1a2e); height: 100%;"></div>
+                        <div class="game-badge">Exclusive</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Pixel Bounty</h3>
+                        <p class="game-description">2D bounty hunter platformer with weapon upgrades and challenging missions.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CyberShot Arena -->
+                <div class="game-card" data-game="cybershot-arena">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #00b4db, #0083b0); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">CyberShot Arena</h3>
+                        <p class="game-description">Top-down PvP arena shooter with local multiplayer support.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- StickOps: Extraction -->
+                <div class="game-card" data-game="stickops">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #16213e, #0f3460); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">StickOps: Extraction</h3>
+                        <p class="game-description">Tactical stickman shooter with story mode and challenging missions.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.5</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Strategy Games -->
+        <div class="game-category" id="strategy-games">
+            <h3 class="section-title" style="margin-bottom: 1.5rem;">Strategy Games</h3>
+            <div class="games-grid">
+                <!-- Empire Architect -->
+                <div class="game-card" data-game="empire-architect">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #16213e, #0f3460); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Empire Architect</h3>
+                        <p class="game-description">Build and defend your city with AI enemies in this strategic city-building game.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Battle Code -->
+                <div class="game-card" data-game="battle-code">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #2d3436, #636e72); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Battle Code</h3>
+                        <p class="game-description">Program your own AI bots to fight other players' bots in this coding strategy game.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tower Wars -->
+                <div class="game-card" data-game="tower-wars">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #e17055, #d63031); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Tower Wars</h3>
+                        <p class="game-description">PvP tower defense where you both defend and send enemies.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.6</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Casual Games -->
+        <div class="game-category" id="casual-games">
+            <h3 class="section-title" style="margin-bottom: 1.5rem;">Casual Games</h3>
+            <div class="games-grid">
+                <!-- Zen Merge -->
+                <div class="game-card" data-game="zen-merge">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #00b894, #00cec9); height: 100%;"></div>
+                        <div class="game-badge">Relaxing</div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Zen Merge</h3>
+                        <p class="game-description">Chill merging puzzle with relaxing music and beautiful visuals.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mini Golf Royale -->
+                <div class="game-card" data-game="mini-golf">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #1dd1a1, #10ac84); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Mini Golf Royale</h3>
+                        <p class="game-description">Online multiplayer golf with obstacles and creative courses.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.5</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Daily Brain Burners -->
+                <div class="game-card" data-game="brain-burners">
+                    <div class="game-image">
+                        <div style="background: linear-gradient(135deg, #6c5ce7, #a29bfe); height: 100%;"></div>
+                    </div>
+                    <div class="game-content">
+                        <h3 class="game-title">Daily Brain Burners</h3>
+                        <p class="game-description">A new logic puzzle every day, with rewards for solving them.</p>
+                        <div class="game-meta">
+                            <div class="game-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7</span>
+                            </div>
+                            <button class="game-play">Play Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Features -->
+    <section class="features-section" id="premium-section">
+        <div class="section-header">
+            <h2 class="section-title">Premium Features</h2>
+        </div>
+        
+        <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-ad"></i>
+                </div>
+                <h3 class="feature-title">Ad-Free Experience</h3>
+                <p class="feature-description">Enjoy uninterrupted gaming with no ads. Focus on what matters - the gameplay.</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3 class="feature-title">Cloud Save & Sync</h3>
+                <p class="feature-description">Your progress is automatically saved and synced across all your devices.</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3 class="feature-title">Early Access</h3>
+                <p class="feature-description">Be the first to play new games and features before they're available to everyone.</p>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3 class="feature-title">Exclusive Content</h3>
+                <p class="feature-description">Access premium-only skins, themes, and in-game content not available to free users.</p>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3 class="feature-title">Premium Leaderboards</h3>
+                <p class="feature-description">Compete in exclusive tournaments and climb the premium-only leaderboards.</p>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <h3 class="feature-title">Weekly Rewards</h3>
+                <p class="feature-description">Receive exclusive rewards, coins, and boosts every week as a premium member.</p>
+            </div>
+            
+            <!-- Feature 7 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h3 class="feature-title">XP Boosts</h3>
+                <p class="feature-description">Gain XP faster and unlock exclusive badges and achievements.</p>
+            </div>
+            
+            <!-- Feature 8 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3 class="feature-title">Custom Game Rooms</h3>
+                <p class="feature-description">Host private games or invite-only matches with your friends.</p>
+            </div>
+            
+            <!-- Feature 9 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-passport"></i>
+                </div>
+                <h3 class="feature-title">Monthly Premium Pass</h3>
+                <p class="feature-description">Unlock exclusive in-game content or avatar gear with the monthly challenge.</p>
+            </div>
+            
+            <!-- Feature 10 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3 class="feature-title">MacVG Coins</h3>
+                <p class="feature-description">Earn coins daily as a premium user, spend on cosmetics or game unlocks.</p>
+            </div>
+            
+            <!-- Feature 11 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <h3 class="feature-title">Animated Avatars</h3>
+                <p class="feature-description">Make your profile look alive instead of dead pixels with animated profile pictures.</p>
+            </div>
+            
+            <!-- Feature 12 -->
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3 class="feature-title">Premium Community</h3>
+                <p class="feature-description">Access premium-only Discord/Forum where you get sneak peeks and updates.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modal -->
+    <div class="game-modal" id="game-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-game-title">Game Title</h2>
+                <button class="close-modal" id="close-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="game-info">
+                    <div class="game-preview" id="modal-game-preview">
+                        <!-- Game preview will be dynamically inserted -->
+                    </div>
+                    <div class="game-details">
+                        <h3>About This Game</h3>
+                        <p id="modal-game-description">Game description will appear here.</p>
+                        
+                        <div class="game-stats">
+                            <div class="stat">
+                                <i class="fas fa-star"></i>
+                                <span id="modal-game-rating">4.5</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span id="modal-game-players">10K+</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-tag"></i>
+                                <span id="modal-game-category">Clicker</span>
+                            </div>
+                        </div>
+                        
+                        <h3>Features</h3>
+                        <ul id="modal-game-features">
+                            <li>Feature 1</li>
+                            <li>Feature 2</li>
+                            <li>Feature 3</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" id="modal-favorite">
+                        <i class="far fa-heart"></i> Add to Favorites
+                    </button>
+                    <button class="btn btn-primary" id="modal-play">
+                        <i class="fas fa-play"></i> Play Game
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>MacVG Premium</h3>
+                <p>The ultimate gaming experience with exclusive features, premium games, and ad-free gameplay.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-discord"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">All Games</a></li>
+                    <li><a href="#">Premium Features</a></li>
+                    <li><a href="#">Leaderboards</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Premium Benefits</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Legal</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Copyright</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 MacVG Premium. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="settings-header">
+            <h2 class="settings-title">Settings</h2>
+            <button class="close-settings" id="close-settings">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="settings-group">
+            <h3 class="settings-group-title">Appearance</h3>
+            
+            <div class="setting-option">
+                <span>Dark Mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-option">
+                <span>Reduced Motion</span>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-option">
+                <span>Theme</span>
+            </div>
+            
+            <div class="theme-selector">
+                <div class="theme-option theme-default active"></div>
+                <div class="theme-option theme-dark"></div>
+                <div class="theme-option theme-ocean"></div>
+            </div>
+        </div>
+        
+        <div class="settings-group">
+            <h3 class="settings-group-title">Gameplay</h3>
+            
+            <div class="setting-option">
+                <span>Sound Effects</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-option">
+                <span>Background Music</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-option">
+                <span>Vibration</span>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="settings-group">
+            <h3 class="settings-group-title">Notifications</h3>
+            
+            <div class="setting-option">
+                <span>Game Updates</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-option">
+                <span>New Games</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-option">
+                <span>Leaderboard Changes</span>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Game data
+        const gamesData = {
+            'coffee-clicker': {
+                title: 'Coffee Clicker',
+                description: 'Brew coffee, hire baristas, and build your caffeine empire in this addictive clicker game. Start with a simple coffee stand and work your way up to a global coffee franchise!',
+                rating: '4.8',
+                players: '50K+',
+                category: 'Clicker',
+                features: [
+                    'Upgrade your coffee equipment',
+                    'Hire and manage baristas',
+                    'Unlock new coffee recipes',
+                    'Compete in global leaderboards',
+                    'Prestige system for endless gameplay'
+                ],
+                color: 'linear-gradient(135deg, #6f4e37, #c0a080)'
+            },
+            'clicker-clicker': {
+                title: 'Clicker Clicker',
+                description: 'A clicker about clicking clickers. Dumb? Yes. Addicting? Also yes. Experience the most meta clicker game ever created!',
+                rating: '4.5',
+                players: '35K+',
+                category: 'Clicker',
+                features: [
+                    'Click to earn clickers',
+                    'Upgrade your clicking power',
+                    'Unlock special clicking abilities',
+                    'Prestige for permanent bonuses',
+                    'Compete with friends'
+                ],
+                color: 'linear-gradient(135deg, #ff6b6b, #ffa36c)'
+            },
+            'infinite-factory': {
+                title: 'Infinite Factory Tycoon',
+                description: 'Upgrade machines, sell weird stuff, get rich in this factory management game. Start small and expand to an industrial empire!',
+                rating: '4.7',
+                players: '42K+',
+                category: 'Clicker',
+                features: [
+                    'Manage production lines',
+                    'Research new technologies',
+                    'Expand your factory',
+                    'Trade on global markets',
+                    'Compete with other tycoons'
+                ],
+                color: 'linear-gradient(135deg, #4a4a4a, #7a7a7a)'
+            },
+            'evoclick': {
+                title: 'EvoClick',
+                description: 'Evolve civilizations with just clicking (Stone Age to Cyberpunk). Guide humanity through the ages with your strategic clicks!',
+                rating: '4.6',
+                players: '38K+',
+                category: 'Clicker',
+                features: [
+                    'Guide civilization through ages',
+                    'Discover new technologies',
+                    'Manage resources and population',
+                    'Face historical challenges',
+                    'Multiple evolution paths'
+                ],
+                color: 'linear-gradient(135deg, #1e3c72, #2a5298)'
+            },
+            'meme-miner': {
+                title: 'Meme Miner',
+                description: 'Click to mine memes, craft NFT parodies, ascend to godhood. The ultimate meme economy simulator!',
+                rating: '4.3',
+                players: '28K+',
+                category: 'Clicker',
+                features: [
+                    'Mine rare and epic memes',
+                    'Craft NFT parodies',
+                    'Build your meme empire',
+                    'Trade on meme marketplace',
+                    'Unlock god-tier abilities'
+                ],
+                color: 'linear-gradient(135deg, #ff00cc, #333399)'
+            },
+            'cookie-conquest': {
+                title: 'Cookie Conquest',
+                description: 'Bake, sell, and upgrade cookies while conquering rival bakeries. Become the ultimate cookie tycoon!',
+                rating: '4.4',
+                players: '33K+',
+                category: 'Clicker',
+                features: [
+                    'Bake various cookie types',
+                    'Upgrade your bakery',
+                    'Conquer rival bakeries',
+                    'Unlock secret recipes',
+                    'Participate in baking contests'
+                ],
+                color: 'linear-gradient(135deg, #d2691e, #f4a460)'
+            },
+            'alien-tapper': {
+                title: 'Alien Tapper',
+                description: 'Build an alien civilization one abduction at a time. Abduct humans, research technology, and dominate the galaxy!',
+                rating: '4.2',
+                players: '25K+',
+                category: 'Clicker',
+                features: [
+                    'Abduct humans for resources',
+                    'Research alien technology',
+                    'Build your mothership',
+                    'Invade planets',
+                    'Unlock powerful aliens'
+                ],
+                color: 'linear-gradient(135deg, #00b09b, #96c93d)'
+            },
+            'idle-heist': {
+                title: 'Idle Heist',
+                description: 'Recruit robbers, plan perfect heists, and watch the cash roll in. The ultimate criminal empire simulator!',
+                rating: '4.5',
+                players: '40K+',
+                category: 'Clicker',
+                features: [
+                    'Recruit specialized robbers',
+                    'Plan elaborate heists',
+                    'Upgrade your hideout',
+                    'Evade law enforcement',
+                    'Become a crime legend'
+                ],
+                color: 'linear-gradient(135deg, #2c3e50, #4ca1af)'
+            },
+            'drift-legends': {
+                title: 'Drift Legends 2D',
+                description: 'Realistic physics, car upgrades, and leaderboards in this thrilling racing game. Master the art of drifting!',
+                rating: '4.6',
+                players: '65K+',
+                category: 'Racing',
+                features: [
+                    'Realistic drifting physics',
+                    'Upgrade and customize cars',
+                    'Multiple game modes',
+                    'Global leaderboards',
+                    'Daily challenges'
+                ],
+                color: 'linear-gradient(135deg, #1a1a2e, #16213e)'
+            },
+            'hover-city': {
+                title: 'Hover City Rush',
+                description: 'Futuristic hover car racing through neon skylines. Race through futuristic cities in high-speed hover vehicles!',
+                rating: '4.4',
+                players: '45K+',
+                category: 'Racing',
+                features: [
+                    'Futuristic hover physics',
+                    'Neon city environments',
+                    'Upgrade your hover car',
+                    'Online multiplayer races',
+                    'Time trial challenges'
+                ],
+                color: 'linear-gradient(135deg, #0f3460, #533483)'
+            },
+            'rally-royale': {
+                title: 'Rally Royale',
+                description: 'Randomly generated dirt tracks, online ghost racing. Experience unpredictable rally racing at its finest!',
+                rating: '4.3',
+                players: '38K+',
+                category: 'Racing',
+                features: [
+                    'Procedurally generated tracks',
+                    'Ghost racing against others',
+                    'Realistic rally physics',
+                    'Multiple car classes',
+                    'Dynamic weather system'
+                ],
+                color: 'linear-gradient(135deg, #8b4513, #d2691e)'
+            },
+            'pixel-bounty': {
+                title: 'Pixel Bounty',
+                description: '2D bounty hunter platformer with weapon upgrades and challenging missions. Hunt down the most dangerous criminals in the galaxy!',
+                rating: '4.9',
+                players: '75K+',
+                category: 'Action',
+                features: [
+                    'Retro pixel art style',
+                    'Weapon upgrade system',
+                    'Challenging boss fights',
+                    'Multiple planets to explore',
+                    'Engaging storyline'
+                ],
+                color: 'linear-gradient(135deg, #0f3460, #1a1a2e)'
+            },
+            'cybershot-arena': {
+                title: 'CyberShot Arena',
+                description: 'Top-down PvP arena shooter with local multiplayer support. Battle it out in futuristic cyber arenas!',
+                rating: '4.7',
+                players: '55K+',
+                category: 'Action',
+                features: [
+                    'Fast-paced PvP combat',
+                    'Local and online multiplayer',
+                    'Various weapons and power-ups',
+                    'Multiple arena maps',
+                    'Ranked competitive mode'
+                ],
+                color: 'linear-gradient(135deg, #00b4db, #0083b0)'
+            },
+            'stickops': {
+                title: 'StickOps: Extraction',
+                description: 'Tactical stickman shooter with story mode and challenging missions. Lead your elite stickman team to victory!',
+                rating: '4.5',
+                players: '48K+',
+                category: 'Action',
+                features: [
+                    'Tactical combat system',
+                    'Story-driven campaign',
+                    'Team management',
+                    'Stealth and action gameplay',
+                    'Multiple mission types'
+                ],
+                color: 'linear-gradient(135deg, #16213e, #0f3460)'
+            },
+            'empire-architect': {
+                title: 'Empire Architect',
+                description: 'Build and defend your city with AI enemies in this strategic city-building game. Create the ultimate civilization!',
+                rating: '4.7',
+                players: '60K+',
+                category: 'Strategy',
+                features: [
+                    'Deep city-building mechanics',
+                    'AI enemy civilizations',
+                    'Resource management',
+                    'Diplomacy and warfare',
+                    'Tech tree progression'
+                ],
+                color: 'linear-gradient(135deg, #16213e, #0f3460)'
+            },
+            'battle-code': {
+                title: 'Battle Code',
+                description: 'Program your own AI bots to fight other players bots in this coding strategy game. Code your way to victory!',
+                rating: '4.8',
+                players: '52K+',
+                category: 'Strategy',
+                features: [
+                    'Visual programming interface',
+                    'Custom AI bot creation',
+                    'Online tournaments',
+                    'Multiple programming languages',
+                    'Community challenges'
+                ],
+                color: 'linear-gradient(135deg, #2d3436, #636e72)'
+            },
+            'tower-wars': {
+                title: 'Tower Wars',
+                description: 'PvP tower defense where you both defend and send enemies. Outsmart your opponents in this strategic battle!',
+                rating: '4.6',
+                players: '45K+',
+                category: 'Strategy',
+                features: [
+                    'Dual-role gameplay',
+                    'Multiple tower types',
+                    'Strategic unit sending',
+                    'Ranked PvP matches',
+                    'Regular balance updates'
+                ],
+                color: 'linear-gradient(135deg, #e17055, #d63031)'
+            },
+            'zen-merge': {
+                title: 'Zen Merge',
+                description: 'Chill merging puzzle with relaxing music and beautiful visuals. Find your inner peace while solving puzzles!',
+                rating: '4.9',
+                players: '70K+',
+                category: 'Casual',
+                features: [
+                    'Relaxing gameplay',
+                    'Beautiful visual design',
+                    'Soothing soundtrack',
+                    'Hundreds of levels',
+                    'Daily meditation challenges'
+                ],
+                color: 'linear-gradient(135deg, #00b894, #00cec9)'
+            },
+            'mini-golf': {
+                title: 'Mini Golf Royale',
+                description: 'Online multiplayer golf with obstacles and creative courses. Putt your way to victory against players worldwide!',
+                rating: '4.5',
+                players: '58K+',
+                category: 'Casual',
+                features: [
+                    'Online multiplayer',
+                    'Creative obstacle courses',
+                    'Customizable golf balls',
+                    'Tournament mode',
+                    'Social features'
+                ],
+                color: 'linear-gradient(135deg, #1dd1a1, #10ac84)'
+            },
+            'brain-burners': {
+                title: 'Daily Brain Burners',
+                description: 'A new logic puzzle every day, with rewards for solving them. Challenge your mind with daily brain teasers!',
+                rating: '4.7',
+                players: '65K+',
+                category: 'Casual',
+                features: [
+                    'New puzzle every day',
+                    'Multiple puzzle types',
+                    'Daily streak rewards',
+                    'Challenge friends',
+                    'Global rankings'
+                ],
+                color: 'linear-gradient(135deg, #6c5ce7, #a29bfe)'
+            }
+        };
+
+        // DOM Elements
+        const exploreGamesBtn = document.getElementById('explore-games');
+        const premiumFeaturesBtn = document.getElementById('premium-features');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const gameCards = document.querySelectorAll('.game-card');
+        const gameModal = document.getElementById('game-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const modalPlayBtn = document.getElementById('modal-play');
+        const modalFavoriteBtn = document.getElementById('modal-favorite');
+        const settingsToggle = document.getElementById('settings-toggle');
+        const settingsPanel = document.getElementById('settings-panel');
+        const closeSettingsBtn = document.getElementById('close-settings');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const gameCategories = document.querySelectorAll('.game-category');
+
+        // Current active game
+        let currentGame = null;
+
+        // Event Listeners
+        exploreGamesBtn.addEventListener('click', function() {
+            document.getElementById('games-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        premiumFeaturesBtn.addEventListener('click', function() {
+            document.getElementById('premium-section').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Filter games by category
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // Update active filter button
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Show/hide game categories
+                if (category === 'all') {
+                    gameCategories.forEach(cat => cat.classList.add('active'));
+                } else {
+                    gameCategories.forEach(cat => {
+                        if (cat.id === `${category}-games`) {
+                            cat.classList.add('active');
+                        } else {
+                            cat.classList.remove('active');
+                        }
+                    });
+                }
+                
+                // Scroll to games section
+                document.getElementById('games-section').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Open game modal
+        gameCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const gameId = this.getAttribute('data-game');
+                openGameModal(gameId);
+            });
+        });
+
+        // Close game modal
+        closeModalBtn.addEventListener('click', function() {
+            gameModal.classList.remove('active');
+        });
+
+        // Play game from modal
+        modalPlayBtn.addEventListener('click', function() {
+            if (currentGame) {
+                alert(`Starting ${gamesData[currentGame].title}...`);
+                // In a real implementation, this would load the actual game
+                gameModal.classList.remove('active');
+            }
+        });
+
+        // Toggle favorite
+        let isFavorited = false;
+        modalFavoriteBtn.addEventListener('click', function() {
+            isFavorited = !isFavorited;
+            if (isFavorited) {
+                this.innerHTML = '<i class="fas fa-heart"></i> Remove from Favorites';
+                this.classList.add('btn-primary');
+                this.classList.remove('btn-secondary');
+            } else {
+                this.innerHTML = '<i class="far fa-heart"></i> Add to Favorites';
+                this.classList.add('btn-secondary');
+                this.classList.remove('btn-primary');
+            }
+        });
+
+        // Settings panel toggle
+        settingsToggle.addEventListener('click', function() {
+            settingsPanel.classList.add('active');
+        });
+
+        closeSettingsBtn.addEventListener('click', function() {
+            settingsPanel.classList.remove('active');
+        });
+
+        // Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const section = this.getAttribute('data-section');
+                
+                if (section === 'games') {
+                    document.getElementById('games-section').scrollIntoView({ behavior: 'smooth' });
+                } else if (section === 'premium') {
+                    document.getElementById('premium-section').scrollIntoView({ behavior: 'smooth' });
+                } else if (section === 'all') {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                // For leaderboards and community, we would normally navigate to another page
+            });
+        });
+
+        // Theme selector
+        const themeOptions = document.querySelectorAll('.theme-option');
+        themeOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                themeOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                // In a real implementation, you would change the CSS variables here
+                // based on the selected theme
+            });
+        });
+
+        // Function to open game modal
+        function openGameModal(gameId) {
+            const game = gamesData[gameId];
+            if (!game) return;
+            
+            currentGame = gameId;
+            
+            // Update modal content
+            document.getElementById('modal-game-title').textContent = game.title;
+            document.getElementById('modal-game-description').textContent = game.description;
+            document.getElementById('modal-game-rating').textContent = game.rating;
+            document.getElementById('modal-game-players').textContent = game.players;
+            document.getElementById('modal-game-category').textContent = game.category;
+            
+            // Update game preview
+            const preview = document.getElementById('modal-game-preview');
+            preview.style.background = game.color;
+            
+            // Update features list
+            const featuresList = document.getElementById('modal-game-features');
+            featuresList.innerHTML = '';
+            game.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                featuresList.appendChild(li);
+            });
+            
+            // Reset favorite button
+            isFavorited = false;
+            modalFavoriteBtn.innerHTML = '<i class="far fa-heart"></i> Add to Favorites';
+            modalFavoriteBtn.classList.add('btn-secondary');
+            modalFavoriteBtn.classList.remove('btn-primary');
+            
+            // Show modal
+            gameModal.classList.add('active');
+        }
+
+        // Close modal when clicking outside
+        gameModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                gameModal.classList.remove('active');
+            }
+        });
+
+        // Game card hover effects
+        gameCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
