@@ -931,7 +931,24 @@
         .game-category {
             display: none;
         }
-        
+        .favorites-badge {
+    background: var(--glass-bg);
+    color: var(--highlight);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+}
+
+.favorites-badge:hover {
+    background: var(--highlight);
+    color: white;
+    transform: translateY(-2px);
+}
         .game-category.active {
             display: block;
         }
@@ -956,10 +973,15 @@
                 <a href="#" class="nav-link" data-section="games">Games</a>
                 <a href="#" class="nav-link" data-section="premium">Premium</a>
                 <a href="#" class="nav-link" data-section="leaderboards">Leaderboards</a>
-                <a href="#" class="nav-link" data-section="community">Community</a>
+                <a href="#" class="nav-link" data-section="community">About Me</a>
+                <a href="/favorites" class="nav-link">Favorites</a>
             </nav>
             
             <div class="user-actions">
+                    <a href="/favorites" class="favorites-badge" id="header-favorites">
+        <i class="fas fa-heart"></i>
+        <span id="favorites-count-badge">0</span>
+    </a>
                 <div class="premium-badge">
                     <i class="fas fa-crown"></i>
                     Premium Member
@@ -2157,7 +2179,138 @@
                 // based on the selected theme
             });
         });
+            // Favorites Management
+const FAVORITES_KEY = 'macvg-favorites';
 
+// Initialize favorites
+function initFavorites() {
+    // Load favorites from localStorage or create empty array
+    let favorites = JSON.parse(localStorage.getItem(FAVORITES_KEY)) || [];
+    return favorites;
+}
+
+// Save favorites to localStorage
+function saveFavorites(favorites) {
+    localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+}
+
+// Toggle favorite status
+function toggleFavorite(gameId) {
+    let favorites = initFavorites();
+    const index = favorites.indexOf(gameId);
+    
+    if (index > -1) {
+        // Remove from favorites
+        favorites.splice(index, 1);
+        showNotification('Removed from favorites');
+    } else {
+        // Add to favorites
+        favorites.push(gameId);
+        showNotification('Added to favorites');
+    }
+    
+    saveFavorites(favorites);
+    updateFavoritesUI();
+    return favorites;
+}
+
+// Check if game is favorited
+function isFavorited(gameId) {
+    const favorites = initFavorites();
+    return favorites.includes(gameId);
+}
+
+// Update all favorite buttons and badge count
+function updateFavoritesUI() {
+    const favorites = initFavorites();
+    
+    // Update badge count
+    const badge = document.getElementById('favorites-count-badge');
+    if (badge) {
+        badge.textContent = favorites.length;
+    }
+    
+    // Update all favorite toggles
+    const favoriteToggles = document.querySelectorAll('.favorite-toggle');
+    favoriteToggles.forEach(toggle => {
+        const gameId = toggle.getAttribute('data-game');
+        if (isFavorited(gameId)) {
+            toggle.classList.add('favorited');
+            toggle.innerHTML = '<i class="fas fa-heart"></i>';
+        } else {
+            toggle.classList.remove('favorited');
+            toggle.innerHTML = '<i class="far fa-heart"></i>';
+        }
+    });
+}
+
+// Show notification
+function showNotification(message) {
+    // Create and show notification (use the same function from favorites page)
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 100px;
+        right: 20px;
+        background: var(--highlight);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+        // Add event listeners to favorite toggles
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize favorites UI
+    updateFavoritesUI();
+    
+    // Add click events to all favorite toggles
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.favorite-toggle')) {
+            const toggle = e.target.closest('.favorite-toggle');
+            const gameId = toggle.getAttribute('data-game');
+            toggleFavorite(gameId);
+        }
+    });
+    
+    // Also add to modal favorite button
+    const modalFavoriteBtn = document.getElementById('modal-favorite');
+    if (modalFavoriteBtn) {
+        modalFavoriteBtn.addEventListener('click', function() {
+            if (currentGame) {
+                toggleFavorite(currentGame);
+                // Update modal button state
+                if (isFavorited(currentGame)) {
+                    this.innerHTML = '<i class="fas fa-heart"></i> Remove from Favorites';
+                    this.classList.add('btn-primary');
+                    this.classList.remove('btn-secondary');
+                } else {
+                    this.innerHTML = '<i class="far fa-heart"></i> Add to Favorites';
+                    this.classList.add('btn-secondary');
+                    this.classList.remove('btn-primary');
+                }
+            }
+        });
+    }
+});
         // Function to open game modal
         function openGameModal(gameId) {
             const game = gamesData[gameId];
@@ -2171,10 +2324,26 @@
             document.getElementById('modal-game-rating').textContent = game.rating;
             document.getElementById('modal-game-players').textContent = game.players;
             document.getElementById('modal-game-category').textContent = game.category;
+
+            const modalFavoriteBtn = document.getElementById('modal-favorite');
+    if (isFavorited(gameId)) {
+        modalFavoriteBtn.innerHTML = '<i class="fas fa-heart"></i> Remove from Favorites';
+        modalFavoriteBtn.classList.add('btn-primary');
+        modalFavoriteBtn.classList.remove('btn-secondary');
+    } else {
+        modalFavoriteBtn.innerHTML = '<i class="far fa-heart"></i> Add to Favorites';
+        modalFavoriteBtn.classList.add('btn-secondary');
+        modalFavoriteBtn.classList.remove('btn-primary');
+    }
+    
+    // Show modal
+    gameModal.classList.add('active');
+}
             
             // Update game preview
             const preview = document.getElementById('modal-game-preview');
             preview.style.background = game.color;
+
             
             // Update features list
             const featuresList = document.getElementById('modal-game-features');
